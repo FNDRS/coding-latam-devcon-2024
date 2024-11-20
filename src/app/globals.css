@@ -16,3 +16,20 @@ html {
   font-family: Arial, Helvetica, sans-serif;
   vertical-align: baseline;
 }
+
+thead {
+  background-color: black;
+
+  th {
+    color: white;
+  }
+}
+
+.rt-BaseTabListTrigger[data-state="active"] {
+  --accent-indicator: #000000;
+  color: var(--accent-indicator);
+}
+
+.rt-BaseTabListTrigger[data-state="active"]:before {
+  background-color: var(--accent-indicator);
+}
