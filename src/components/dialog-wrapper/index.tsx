@@ -17,7 +17,7 @@ export const DialogWrapper: React.FC<DialogWrapperProps> = ({
   description,
   children,
   className = "",
-  maxWidth = "450px",
+  maxWidth,
 }) => {
   return (
     <Dialog.Root>

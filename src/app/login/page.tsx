@@ -1,7 +1,19 @@
+"use client";
+import { InputField } from "@/components/input-field";
 import Image from "next/image";
 import React from "react";
+import { useForm } from "react-hook-form";
 
 export default function Login(): JSX.Element {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = () => {};
+
   return (
     <div className="flex flex-row flex-wrap md:flex-nowrap items-center lg:w-[1020px]  p-2 rounded-3xl md:h-[640px] w-full justify-center shadow-2xl">
       <div className="flex items-center justify-center min-w-1/2 md:h-full ">
@@ -28,27 +40,31 @@ export default function Login(): JSX.Element {
             Enter your email and password to access your account
           </p>
         </div>
-        <form className="flex flex-col justify-between w-full px-4 gap-4">
+        <form
+          className="flex flex-col justify-between w-full px-4 gap-4"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <div className="flex flex-col">
-            <label htmlFor="email" className="text-sm font-extrabold">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              placeholder="Enter your email"
-              className="bg-gray-100 text-gray-800 py-4 outline-black rounded-lg placeholder:text-text-gray-500 pl-4"
+            <InputField
+              type="text"
+              labelText="Email Address"
+              name="email"
+              placeholder="Enter your Email"
+              errors={errors}
+              register={register}
+              required
             />
           </div>
           <div className="flex flex-col">
-            <label htmlFor="password" className="text-sm font-extrabold">
-              Password
-            </label>
-            <input
+            <InputField
               type="password"
-              id="password"
+              labelText="Password"
+              name="password"
               placeholder="Enter your password"
-              className="bg-gray-100 text-gray-800 py-4 outline-black rounded-lg placeholder:text-text-gray-500  pl-4"
+              errors={errors}
+              register={register}
+              required
+              watch={watch}
             />
           </div>
           {/*   <span className="text-sm text-gray-700 text-right font-bold hover:underline cursor-pointer">
