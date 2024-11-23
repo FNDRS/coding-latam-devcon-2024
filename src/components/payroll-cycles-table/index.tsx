@@ -1,29 +1,34 @@
 import { Table } from "@radix-ui/themes";
 import React from "react";
 
-export const PayrollCyclesTable = () => {
+interface PayrollData {
+  id: string;
+  employee: string;
+}
+
+interface PayrollCyclesTableProps {
+  payrollData: PayrollData[];
+}
+
+export const PayrollCyclesTable: React.FC<PayrollCyclesTableProps> = ({
+  payrollData,
+}) => {
   return (
-    <Table.Root variant="surface" className=" my-2">
+    <Table.Root variant="surface" className="rounded-lg my-2">
       <Table.Header>
         <Table.Row>
           <Table.ColumnHeaderCell>Code</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell>Employee</Table.ColumnHeaderCell>
-          <Table.ColumnHeaderCell>Total Hours</Table.ColumnHeaderCell>
-          <Table.ColumnHeaderCell>Salary</Table.ColumnHeaderCell>
-          <Table.ColumnHeaderCell>Deductions</Table.ColumnHeaderCell>
-          <Table.ColumnHeaderCell>Final Salary</Table.ColumnHeaderCell>
         </Table.Row>
       </Table.Header>
 
       <Table.Body>
-        <Table.Row>
-          <Table.RowHeaderCell>11101</Table.RowHeaderCell>
-          <Table.RowHeaderCell>Dan Sousa</Table.RowHeaderCell>
-          <Table.Cell>46 hours</Table.Cell>
-          <Table.Cell>$2,500</Table.Cell>
-          <Table.Cell>$453</Table.Cell>
-          <Table.Cell>$2,047</Table.Cell>
-        </Table.Row>
+        {payrollData.map((data, index) => (
+          <Table.Row key={index}>
+            <Table.RowHeaderCell>{data.id}</Table.RowHeaderCell>
+            <Table.RowHeaderCell>{data.employee}</Table.RowHeaderCell>
+          </Table.Row>
+        ))}
       </Table.Body>
     </Table.Root>
   );

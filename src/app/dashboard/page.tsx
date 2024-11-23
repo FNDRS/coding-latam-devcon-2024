@@ -74,10 +74,19 @@ export default function Dashboard(): JSX.Element {
                               >
                                 <EditPayrollCycle />
                               </DialogWrapper>
-                              <li className="flex flex-row gap-2 items-center hover:bg-black hover:text-white cursor-pointer p-2 rounded-lg">
-                                <Pencil1Icon className="h-5" />
-                                <span>Edit payroll cycle</span>
-                              </li>
+                              <DialogWrapper
+                                maxWidth="450px"
+                                trigger={
+                                  <li className="flex flex-row gap-2 items-center hover:bg-black hover:text-white cursor-pointer p-2 rounded-lg">
+                                    <Pencil1Icon className="h-5" />
+                                    <span>Edit payroll cycle</span>
+                                  </li>
+                                }
+                                title="Edit Payroll Cycle"
+                                description="Make changes to edit your payroll cycle."
+                              >
+                                <EditPayrollCycle />
+                              </DialogWrapper>
                             </ul>
                           </PopoverWrapper>
                         </p>

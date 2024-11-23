@@ -1,7 +1,6 @@
 import { ButtonWrapper } from "@/components/button-wrapper";
 import { DialogWrapper } from "@/components/dialog-wrapper";
 import { AddNewEmployeeToPayroll } from "@/components/modals/add-new-employee-to-payroll";
-import { EditPayrollCycle } from "@/components/modals/edit-payroll-cycle";
 import { PayrollCyclesTable } from "@/components/payroll-cycles-table";
 import { PopoverWrapper } from "@/components/popover-wrapper";
 import { TabsWrapper } from "@/components/tabs-wrapper";

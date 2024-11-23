@@ -4,7 +4,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 
 interface DialogWrapperProps {
   trigger: React.ReactNode;
-  title: string;
+  title?: string;
   description?: string;
   children: React.ReactNode;
   className?: string;
