@@ -3,44 +3,34 @@
 import { CardList } from "@/components/card-list";
 import { DialogWrapper } from "@/components/dialog-wrapper";
 import { PayrollForm } from "@/components/modals/payroll-form";
-
-import React from "react";
-import { useForm } from "react-hook-form";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function Payrolls(): JSX.Element {
-  const {
-    register,
-    watch,
-    formState: { errors },
-  } = useForm();
+  const [cardData, setCardData] = useState<PayrollData[]>([]);
 
-  const cardData = [
-    {
-      title: "Finance",
-      description: "This is the payroll for Finance",
-      createdDate: "22-11-24",
-    },
-    {
-      title: "Human Resources",
-      description: "This is the payroll for HR",
-      createdDate: "20-11-24",
-    },
-    {
-      title: "Marketing",
-      description: "This is the payroll for marketing",
-      createdDate: "18-11-24",
-    },
-    {
-      title: "Marketing",
-      description: "This is the payroll for marketing",
-      createdDate: "18-11-24",
-    },
-    {
-      title: "Marketing",
-      description: "This is the payroll for marketing",
-      createdDate: "18-11-24",
-    },
-  ];
+  useEffect(() => {
+    const fetchPayrolls = async () => {
+      try {
+        const response = await axios.get("/api/get-all-payrolls");
+
+        const mappedData = response.data.map((payroll: any) => ({
+          id: payroll.id,
+          title: payroll.payrollName,
+          description: payroll.description,
+          createdAt: payroll.createdAt
+            ? new Date(payroll.createdAt).toLocaleDateString()
+            : "No Date",
+        }));
+
+        setCardData(mappedData);
+      } catch (error) {
+        console.error("Error fetching payroll data:", error);
+      }
+    };
+
+    fetchPayrolls();
+  }, []);
 
   return (
     <div className="bg-gray-100 h-full rounded-lg p-4">
@@ -56,7 +46,7 @@ export default function Payrolls(): JSX.Element {
           title="Add New Payroll"
           description="Fill in the details to add a new Payroll."
         >
-          <PayrollForm register={register} errors={errors} watch={watch} />
+          <PayrollForm />
         </DialogWrapper>
       </div>
       <CardList cardData={cardData} />

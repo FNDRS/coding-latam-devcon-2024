@@ -1,13 +1,43 @@
-import { ButtonWrapper } from "@/components/button-wrapper";
+"use client";
+
+import { DeductionsTable } from "@/components/deductions-table/deductions-table";
 import { DialogWrapper } from "@/components/dialog-wrapper";
-import { AddNewEmployeeToPayroll } from "@/components/modals/add-new-employee-to-payroll";
-import { PayrollCyclesTable } from "@/components/payroll-cycles-table";
+import { DeductionsForm } from "@/components/modals/deductions-form";
 import { PopoverWrapper } from "@/components/popover-wrapper";
 import { TabsWrapper } from "@/components/tabs-wrapper";
 import { DotsHorizontalIcon, PersonIcon } from "@radix-ui/react-icons";
 import React from "react";
+import { useForm } from "react-hook-form";
 
 export default function Deductions(): JSX.Element {
+  const {
+    register,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  const deductionData = [
+    {
+      id: "1",
+      name: "Federal Tax",
+      amount: 200,
+    },
+    {
+      id: "2",
+      name: "Social Security",
+      amount: 100,
+    },
+    {
+      id: "3",
+      name: "Medicare",
+      amount: 50,
+    },
+    {
+      id: "4",
+      name: "State Tax",
+      amount: 50,
+    },
+  ];
   return (
     <div className="bg-gray-100 rounded-lg w-full h-full p-4">
       <header>
@@ -40,32 +70,42 @@ export default function Deductions(): JSX.Element {
                             <ul className="flex flex-col gap-4">
                               <DialogWrapper
                                 maxWidth="100%"
+                                className="w-[400px]"
                                 trigger={
                                   <li className="flex flex-row gap-2 items-center hover:bg-black hover:text-white cursor-pointer p-2 rounded-lg">
                                     <PersonIcon className="h-5" />
                                     <span>Add new deduction</span>
                                   </li>
                                 }
-                                title="Add New Deduction"
-                                description="Fill in the details to add a new deduction."
+                                title="Add Deduction"
+                                description="Fill in the details to add a deduction."
                               >
-                                <AddNewEmployeeToPayroll />
+                                <DeductionsForm
+                                  errors={errors}
+                                  register={register}
+                                  watch={watch}
+                                />
                               </DialogWrapper>
                             </ul>
                           </PopoverWrapper>
                         </p>
                       </div>
-                      <PayrollCyclesTable />
-                      <div className="w-full flex flex-row justify-end items-center mt-4">
+                      <DeductionsTable
+                        deductionData={deductionData}
+                        errors={errors}
+                        register={register}
+                        watch={watch}
+                      />
+                      {/*   <div className="w-full flex flex-row justify-end items-center mt-4">
                         <ButtonWrapper text="Send Payslip" />
-                      </div>
+                      </div> */}
                     </div>
                   ),
                 },
                 {
-                  value: "biweekly",
-                  label: "Biweekly",
-                  content: <p>Biweekly tab content</p>,
+                  value: "company",
+                  label: "Company",
+                  content: <p>Company tab content</p>,
                 },
               ]}
             />

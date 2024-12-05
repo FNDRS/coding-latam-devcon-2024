@@ -91,7 +91,7 @@ export default function Dashboard(): JSX.Element {
                           </PopoverWrapper>
                         </p>
                       </div>
-                      <PayrollCyclesTable />
+                      {/* <PayrollCyclesTable /> */}
                       <div className="w-full flex flex-row justify-end items-center mt-4">
                         <ButtonWrapper text="Send Payslip" />
                       </div>

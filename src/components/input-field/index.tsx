@@ -48,7 +48,7 @@ export function InputField<T extends FieldValues>({
   }
 
   return (
-    <div className="flex flex-col text-base">
+    <div className="flex flex-col text-base flex-grow">
       <div className="flex flex-row gap-1">
         <label className="text-sm font-extrabold mb-1">{labelText}</label>
       </div>

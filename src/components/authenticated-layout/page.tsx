@@ -1,12 +1,14 @@
+"use client";
 import {
   FileMinusIcon,
   FileTextIcon,
   LockClosedIcon,
   PersonIcon,
 } from "@radix-ui/react-icons";
-import { Avatar, Flex, Tabs } from "@radix-ui/themes";
+import { Avatar, Flex } from "@radix-ui/themes";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 
 export const AuthenticatedLayout = ({
@@ -14,6 +16,8 @@ export const AuthenticatedLayout = ({
 }: {
   children: React.ReactNode;
 }) => {
+  const currentPath = usePathname();
+
   const sidebarItems = [
     {
       label: "Payrolls",
@@ -50,18 +54,26 @@ export const AuthenticatedLayout = ({
               priority
             />
           </li>
-          {sidebarItems.map((item, index) => (
-            <Link href={item.href} key={index}>
-              <li className="mx-3 hover:bg-black hover:text-white cursor-pointer py-4 rounded-lg flex flex-row items-center pl-2">
-                {item.icon}
-                <span className="pl-2">{item.label}</span>
-              </li>
-            </Link>
-          ))}
+          {sidebarItems.map((item, index) => {
+            const isActive = currentPath === item.href;
+            return (
+              <Link href={item.href} key={index}>
+                <li
+                  className={`mx-3 py-4 rounded-lg flex flex-row items-center pl-2 cursor-pointer ${
+                    isActive
+                      ? "bg-black text-white"
+                      : "hover:bg-black hover:text-white"
+                  }`}
+                >
+                  {item.icon}
+                  <span className="pl-2">{item.label}</span>
+                </li>
+              </Link>
+            );
+          })}
         </ul>
       </aside>
       <div className="w-full">
-        {/* Header */}
         <header className="h-16 font-bold px-6 bg-gray-100 rounded-lg m-4">
           <ul className="flex flex-row items-center justify-between h-full">
             <li className="font-bold text-xl" />
@@ -75,7 +87,6 @@ export const AuthenticatedLayout = ({
             </li>
           </ul>
         </header>
-        {/* Main content */}
         <main className="p-4 w-full">{children}</main>
       </div>
     </div>

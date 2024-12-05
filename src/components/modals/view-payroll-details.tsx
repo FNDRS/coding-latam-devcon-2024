@@ -1,32 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { TabsWrapper } from "../tabs-wrapper";
 import { PayrollCyclesTable } from "../payroll-cycles-table";
+import axios from "axios";
 
-interface PayrollData {
-  payrollName: string;
-  payrollDescription: string;
-  employeesList: string[];
-  createdAt: string;
+interface ViewPayloadDetailsProps {
+  data: PayrollData;
+  id: string;
 }
 
-const payrollData = [
-  {
-    id: "10011",
-    employee: "Marlon Geovany",
-  },
-  {
-    id: "10012",
-    employee: "Jorge Luis",
-  },
-];
+export const ViewPayloadDetails: React.FC<ViewPayloadDetailsProps> = ({
+  data,
+  id,
+}) => {
+  const [userData, setUserData] = useState();
 
-export const ViewPayloadDetails = ({ data }: { data: PayrollData }) => {
+  useEffect(() => {
+    const fetchPayrollData = async (id: string) => {
+      try {
+        const response = await axios.post("/api/get-user-by-payroll", {
+          payrollId: id,
+        });
+
+        console.log("Payroll Data:", response.data);
+
+        setUserData(response.data);
+        console.log("Payroll Data:", response.data);
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          console.error("Error fetching payroll data:", error.message);
+        } else {
+          console.error("Unknown error:", error);
+        }
+      }
+    };
+
+    fetchPayrollData(id);
+  }, [data]);
+
   return (
     <div>
-      <h1 className="text-xl font-bold text-blue-500">{data?.payrollName}</h1>
+      <h1 className="text-xl font-bold text-blue-500">{data?.title}</h1>
       <p className="text-sm font-bold text-gray-400">{data?.createdAt}</p>
-      <p className="my-8">{data?.payrollDescription}</p>
-      <p className="font-bold text-md text-blue-900 mb-4">Lista de empleados</p>
+      <p className="my-8">{data?.description}</p>
+      <p className="font-bold text-md text-blue-900 mb-4">Employee List</p>
       <div className="w-full bg-gray-200 rounded-lg p-4">
         <TabsWrapper
           defaultValue="monthly"
@@ -37,7 +53,7 @@ export const ViewPayloadDetails = ({ data }: { data: PayrollData }) => {
             {
               value: "monthly",
               label: "Monthly",
-              content: <PayrollCyclesTable payrollData={payrollData} />,
+              content: <PayrollCyclesTable data={userData || []} />,
             },
             {
               value: "biweekly",

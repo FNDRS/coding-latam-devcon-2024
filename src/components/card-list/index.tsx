@@ -11,15 +11,10 @@ import { AddNewEmployeeToPayroll } from "../modals/add-new-employee-to-payroll";
 import { PayrollForm } from "../modals/payroll-form";
 import { useForm } from "react-hook-form";
 import { ViewPayloadDetails } from "../modals/view-payroll-details";
-
-interface CardData {
-  title: string;
-  description: string;
-  createdDate: string;
-}
+import { ConfirmDelete } from "../modals/confirm-delete";
 
 interface CardListProps {
-  cardData: CardData[];
+  cardData: PayrollData[];
 }
 
 export const CardList: React.FC<CardListProps> = ({ cardData }) => {
@@ -29,16 +24,11 @@ export const CardList: React.FC<CardListProps> = ({ cardData }) => {
     formState: { errors },
   } = useForm();
 
-  const payloadData = {
-    payrollName: "Payroll 1",
-    payrollDescription: "This is a payroll for the month of November",
-    employeesList: ["Employee 1", "Employee 2", "Employee 3"],
-    createdAt: "Nov 15, 2021",
-  };
+  console.log("Card Data:", cardData);
 
   return (
     <div className="flex flex-wrap gap-6 justify-start">
-      {cardData.map((card, index) => (
+      {cardData?.map((card, index) => (
         <div
           key={index}
           className="rounded-lg bg-white p-4 flex flex-col justify-between w-[320px] h-[290px] shadow-xl"
@@ -61,7 +51,7 @@ export const CardList: React.FC<CardListProps> = ({ cardData }) => {
                     </li>
                   }
                 >
-                  <ViewPayloadDetails data={payloadData} />
+                  <ViewPayloadDetails data={card} id={card.id} />
                 </DialogWrapper>
                 <DialogWrapper
                   maxWidth="100%"
@@ -75,23 +65,27 @@ export const CardList: React.FC<CardListProps> = ({ cardData }) => {
                   title="Edit Payroll"
                   description="Fill in the details to add a edit payroll."
                 >
-                  <PayrollForm
-                    register={register}
-                    errors={errors}
-                    watch={watch}
-                  />
+                  <PayrollForm />
                 </DialogWrapper>
 
-                <li className="flex flex-row gap-2 items-center hover:bg-black hover:text-white cursor-pointer p-2 rounded-lg">
-                  <TrashIcon className="h-5" />
-                  <span>Delete Payroll</span>
-                </li>
+                <DialogWrapper
+                  maxWidth="100%"
+                  className="w-[500px]"
+                  trigger={
+                    <li className="flex flex-row gap-2 items-center hover:bg-black hover:text-white cursor-pointer p-2 rounded-lg">
+                      <TrashIcon className="h-5" />
+                      <span>Delete Payroll</span>
+                    </li>
+                  }
+                >
+                  <ConfirmDelete />
+                </DialogWrapper>
               </ul>
             </PopoverWrapper>
           </header>
           <p className="h-full">{card.description}</p>
           <p className="flex flex-row justify-end text-gray-300 text-sm font-bold">
-            Created: {card.createdDate}
+            Created: {card?.createdAt}
           </p>
         </div>
       ))}
