@@ -30,7 +30,7 @@ const usersData = [
 
 export default function Users(): JSX.Element {
   return (
-    <div className="p-2 bg-gray-100 rounded-lg">
+    <div className="p-4 bg-gray-100 rounded-lg">
       <TabsWrapper
         defaultValue="admin"
         className="w-full "

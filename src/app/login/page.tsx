@@ -101,15 +101,6 @@ export default function Login(): JSX.Element {
           <button className="bg-black text-white py-4 rounded-xl font-extrabold mt-8">
             Sign In
           </button>
-          <p className="text-gray-500 text-center">
-            Don't have an account?{" "}
-            <a
-              href="/signup"
-              className="text-black text-sm font-extrabold hover:underline cursor-pointer"
-            >
-              Sign Up
-            </a>
-          </p>{" "}
         </form>
       </div>
     </div>

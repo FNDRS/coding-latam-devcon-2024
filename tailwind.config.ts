@@ -8,6 +8,9 @@ export default {
   ],
   theme: {
     extend: {
+      animation: {
+        spin: "spin 1s linear infinite",
+      },
       screens: {
         xs: "480px",
       },

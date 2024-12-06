@@ -1,0 +1,75 @@
+@use "../../styles/variables" as v;
+
+.Overlay {
+  background-color: v.$bg-rich-black;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.Content {
+  z-index: 200;
+  background-color: v.$bg-white;
+  border-radius: 6px;
+  box-shadow:
+    v.$box-start-black 0px 10px 38px -10px,
+    v.$box-end-black 0px 10px 20px -15px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-height: 95vh;
+  padding: 25px;
+  animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.Title {
+  margin: 0;
+  font-weight: 500;
+  color: v.$color-eerie-black;
+  font-size: 17px;
+}
+
+.IconButton {
+  font-family: inherit;
+
+  height: 25px;
+  width: 25px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+@keyframes overlayShow {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes contentShow {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
