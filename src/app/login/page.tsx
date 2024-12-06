@@ -1,18 +1,46 @@
 "use client";
 import { InputField } from "@/components/input-field";
+import { Endpoints } from "@/services/api/enum";
+import axios from "axios";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 export default function Login(): JSX.Element {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm();
+  } = useForm<FormData>();
 
-  const onSubmit = () => {};
+  type FormData = {
+    email: string;
+    password: string;
+  };
+
+  const onSubmit = async (data: FormData) => {
+    try {
+      toast.loading("Logging in...");
+
+      const response = await axios.post(Endpoints.Login, data);
+      console.log(response);
+      if (response.data.status !== 200) {
+        toast.dismiss();
+        toast.error("Invalid email or password");
+        return;
+      }
+
+      toast.dismiss();
+      toast.success("Logged in successfully");
+      router.push("/dashboard");
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
     <div className="flex flex-row flex-wrap md:flex-nowrap items-center lg:w-[1020px]  p-2 rounded-3xl md:h-[640px] w-full justify-center shadow-2xl">

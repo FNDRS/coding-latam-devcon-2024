@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 
 import "./globals.css";
 import "@radix-ui/themes/styles.css";
-import { Theme } from "@radix-ui/themes";
+import Providers from "./providers";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -17,8 +17,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "FNDRS — Coding Latam DevCon",
-  description: "Coding Latam DevCon",
+  title: "PAYBRIDGE by FNDRS",
+  description: "PAYBRIDGE by FNDRS",
 };
 
 export default function RootLayout({
@@ -35,9 +35,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Theme accentColor="blue" panelBackground="solid" radius="large">
-          {children}
-        </Theme>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
