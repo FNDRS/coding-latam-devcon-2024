@@ -39,7 +39,10 @@ export const POST = async (req: NextRequest & { body: RequestBody }) => {
     const res = await axios.request<ResponseData>(options);
     const { access_token, id_token } = res.data;
 
-    const response = NextResponse.json({ ...res.data });
+    const response = NextResponse.json({
+      status: 200,
+      body: { message: "Logged in successfully" },
+    });
 
     if (access_token) {
       response.cookies.set("access_token", access_token, {
