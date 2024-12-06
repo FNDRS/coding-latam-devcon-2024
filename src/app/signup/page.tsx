@@ -19,18 +19,7 @@ export default function Login(): JSX.Element {
     password: string;
   };
 
-  const onSubmit = async (data: FormData) => {
-    try {
-      const response = await axios.post(Endpoints.SignUp, data);
-
-      if (response.status === 200) {
-        console.log("Signed up successfully");
-      }
-      console.log(response);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const onSubmit = async (data: FormData) => {};
 
   return (
     <div className="flex flex-row flex-wrap md:flex-nowrap items-center lg:w-[1020px]  p-2 rounded-3xl md:h-[640px] w-full justify-center shadow-2xl">

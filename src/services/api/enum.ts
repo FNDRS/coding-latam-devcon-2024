@@ -6,4 +6,5 @@ export enum Endpoints {
   ResetPassword = "/api/auth/reset-password",
   ValidateToken = "/api/auth/validate-token",
   SignUp = "/api/auth/sign-up",
+  GetUsers = "/api/auth/get-users",
 }

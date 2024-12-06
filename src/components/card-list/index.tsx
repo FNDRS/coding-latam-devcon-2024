@@ -24,8 +24,6 @@ export const CardList: React.FC<CardListProps> = ({ cardData }) => {
     formState: { errors },
   } = useForm();
 
-  console.log("Card Data:", cardData);
-
   return (
     <div className="flex flex-wrap gap-6 justify-start">
       {cardData?.map((card, index) => (

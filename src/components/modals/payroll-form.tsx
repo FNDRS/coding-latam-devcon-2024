@@ -78,8 +78,6 @@ export const PayrollForm: React.FC = () => {
           "Content-Type": "application/json",
         },
       });
-
-      // console.log("API Response:", response.data);
     } catch (error: any) {
       console.error("Error creating payroll:", error.message);
     }

@@ -21,10 +21,7 @@ export const ViewPayloadDetails: React.FC<ViewPayloadDetailsProps> = ({
           payrollId: id,
         });
 
-        console.log("Payroll Data:", response.data);
-
         setUserData(response.data);
-        console.log("Payroll Data:", response.data);
       } catch (error) {
         if (axios.isAxiosError(error)) {
           console.error("Error fetching payroll data:", error.message);

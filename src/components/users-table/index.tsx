@@ -5,16 +5,15 @@ import {
   DotsHorizontalIcon,
   Pencil1Icon,
   PersonIcon,
-  TimerIcon,
 } from "@radix-ui/react-icons";
 import { PopoverWrapper } from "../popover-wrapper";
-import { DeductionsForm } from "../modals/deductions-form";
 import { ConfirmDelete } from "../modals/confirm-delete";
 
 interface UserData {
-  id: string;
-  code: string;
-  name: string;
+  user_id: string;
+  nickname: string;
+  email: string;
+  last_login: string;
 }
 
 interface UserTableProps {
@@ -34,8 +33,10 @@ export const UserTable: React.FC<UserTableProps> = ({
     <Table.Root variant="surface" className="rounded-lg my-2">
       <Table.Header>
         <Table.Row>
-          <Table.ColumnHeaderCell>Code</Table.ColumnHeaderCell>
-          <Table.ColumnHeaderCell>User</Table.ColumnHeaderCell>
+          <Table.ColumnHeaderCell>ID</Table.ColumnHeaderCell>
+          <Table.ColumnHeaderCell>Name</Table.ColumnHeaderCell>
+          <Table.ColumnHeaderCell>Email</Table.ColumnHeaderCell>
+          <Table.ColumnHeaderCell>Last Login</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell>Actions</Table.ColumnHeaderCell>
         </Table.Row>
       </Table.Header>
@@ -43,8 +44,10 @@ export const UserTable: React.FC<UserTableProps> = ({
       <Table.Body>
         {data.map((data, index) => (
           <Table.Row key={index}>
-            <Table.RowHeaderCell>{data.id}</Table.RowHeaderCell>
-            <Table.RowHeaderCell>{data.name}</Table.RowHeaderCell>
+            <Table.RowHeaderCell>{data.user_id}</Table.RowHeaderCell>
+            <Table.RowHeaderCell>{data.nickname}</Table.RowHeaderCell>
+            <Table.RowHeaderCell>{data.email}</Table.RowHeaderCell>
+            <Table.RowHeaderCell>{data.last_login}</Table.RowHeaderCell>
             <Table.RowHeaderCell>
               <PopoverWrapper
                 trigger={<DotsHorizontalIcon className="h-10" />}

@@ -27,7 +27,7 @@ export default function Login(): JSX.Element {
       toast.loading("Logging in...");
 
       const response = await axios.post(Endpoints.Login, data);
-      console.log(response);
+
       if (response.data.status !== 200) {
         toast.dismiss();
         toast.error("Invalid email or password");
@@ -38,7 +38,7 @@ export default function Login(): JSX.Element {
       toast.success("Logged in successfully");
       router.push("/dashboard");
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   };
 
