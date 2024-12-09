@@ -8,16 +8,32 @@ import axios from "axios";
 import { Endpoints } from "@/services/api/enum";
 import { SelectWrapper } from "../select-wrapper";
 
+type FormData = {
+  username: string;
+  roles: any;
+  email: string;
+  password: string;
+};
+
 export const AddNewUser = () => {
   const [roles, setRoles] = useState([]);
 
   const {
     register,
-
+    control,
     handleSubmit,
+    setValue,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<FormData>({
+    defaultValues: {
+      username: "",
+      roles: "",
+      email: "",
+      password: "",
+    },
+  });
 
+  console.log(errors, "err");
   useEffect(() => {
     (async () => {
       try {
@@ -30,6 +46,9 @@ export const AddNewUser = () => {
             value: role.id,
           }));
           setRoles(formattedRoles);
+          if (formattedRoles.length > 0) {
+            setValue("roles", formattedRoles[1].value);
+          }
         }
       } catch (error) {
         console.error("An error occurred while fetching roles");
@@ -37,7 +56,9 @@ export const AddNewUser = () => {
     })();
   }, []);
 
-  const onSubmit = (data: FormData) => {};
+  const onSubmit = (data: FormData) => {
+    console.log(data);
+  };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col">
@@ -58,10 +79,10 @@ export const AddNewUser = () => {
           <div className="flex-grow">
             <SelectWrapper
               label="Role"
-              name="role"
+              name="roles"
               placeholder="Select..."
               options={roles}
-              register={register}
+              control={control}
               errors={errors}
             />
           </div>

@@ -15,9 +15,17 @@ export const EmployeeForm: React.FC = () => {
   const {
     register,
     handleSubmit,
+    control,
     watch,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      employeeName: "",
+      email: "",
+      password: "",
+      roles: {},
+    },
+  });
 
   const onSubmit = async (data: any) => {};
 
@@ -92,6 +100,7 @@ export const EmployeeForm: React.FC = () => {
                 Select the Frequency
               </label>
               <SelectWrapper
+                control={control}
                 name="frequency"
                 label="Frequency"
                 placeholder="Select..."
@@ -99,7 +108,6 @@ export const EmployeeForm: React.FC = () => {
                   { label: "Biweekly", value: "biweekly" },
                   { label: "Monthly", value: "monthly" },
                 ]}
-                register={register}
                 errors={errors}
               />
             </div>
@@ -112,7 +120,7 @@ export const EmployeeForm: React.FC = () => {
                   { label: "Per Hour", value: "perHour" },
                   { label: "Monthly", value: "monthly" },
                 ]}
-                register={register}
+                control={control}
                 errors={errors}
               />
             </div>
@@ -130,7 +138,7 @@ export const EmployeeForm: React.FC = () => {
               { label: "Platform", value: "platform" },
               { label: "Transfer", value: "transfer" },
             ]}
-            register={register}
+            control={control}
             errors={errors}
           />
 
