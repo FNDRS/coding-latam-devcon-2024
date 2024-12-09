@@ -3,7 +3,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { InputField } from "../input-field";
-import SelectWrapper from "../select-wrapper";
+import { SelectWrapper } from "../select-wrapper";
 
 interface EmployeeFormProps {
   errors: any;
@@ -92,48 +92,48 @@ export const EmployeeForm: React.FC = () => {
                 Select the Frequency
               </label>
               <SelectWrapper
+                name="frequency"
                 label="Frequency"
                 placeholder="Select..."
                 options={[
                   { label: "Biweekly", value: "biweekly" },
                   { label: "Monthly", value: "monthly" },
                 ]}
+                register={register}
+                errors={errors}
               />
             </div>
             <div className="flex-col flex">
-              <label className="text-sm text-black font-bold mb-2">
-                Salary type
-              </label>
               <SelectWrapper
+                name="salaryType"
                 label="Frequency"
                 placeholder="Select..."
                 options={[
                   { label: "Per Hour", value: "perHour" },
                   { label: "Monthly", value: "monthly" },
                 ]}
+                register={register}
+                errors={errors}
               />
             </div>
           </div>
         </div>
         <div className="flex flex-col gap-4 mt-4">
           <span className="font-bold">Payment info</span>
-        </div>
-        <div className="flex flex-row gap-4">
-          <div className="flex flex-col">
-            <label className="text-sm text-black font-bold mb-2">
-              Payment method
-            </label>
-            <SelectWrapper
-              label="Payment Method"
-              placeholder="Select..."
-              options={[
-                { label: "Bank", value: "bank" },
-                { label: "International", value: "international" },
-                { label: "Platform", value: "platform" },
-                { label: "Transfer", value: "transfer" },
-              ]}
-            />
-          </div>
+          <SelectWrapper
+            name="paymentMethod"
+            label="Payment Method"
+            placeholder="Select..."
+            options={[
+              { label: "Bank", value: "bank" },
+              { label: "International", value: "international" },
+              { label: "Platform", value: "platform" },
+              { label: "Transfer", value: "transfer" },
+            ]}
+            register={register}
+            errors={errors}
+          />
+
           <div className="w-[300px]">
             <InputField
               type="text"
