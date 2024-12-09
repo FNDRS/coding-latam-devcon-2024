@@ -6,6 +6,7 @@ type ResponseData = {
   access_token?: string;
   id_token?: string;
   error_description?: string;
+  user?: any; // Para almacenar los datos del usuario
 };
 
 type RequestBody = {
@@ -37,6 +38,20 @@ export const POST = async (req: NextRequest & { body: RequestBody }) => {
     const loginResponse = await axios.request<ResponseData>(loginOptions);
 
     if (loginResponse.data.access_token) {
+      const access_token = loginResponse.data.access_token;
+
+      // Obtener la información del usuario con el access_token
+      const userInfoResponse = await axios.get(
+        `${process.env.AUTH0_API_URL}/userinfo`,
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        }
+      );
+
+      const userData = userInfoResponse.data; // Esta es la data del usuario
+
       const managementTokenResponse = await axios.post<ResponseData>(
         `${process.env.AUTH0_API_URL}/oauth/token`,
         {
@@ -47,13 +62,18 @@ export const POST = async (req: NextRequest & { body: RequestBody }) => {
         }
       );
 
-      const { access_token, id_token } = managementTokenResponse.data;
+      const { access_token: management_token } = managementTokenResponse.data;
 
       const response = NextResponse.json({
         status: 200,
-        body: { message: "Logged in successfully" },
+        body: {
+          message: "Logged in successfully",
+          user: userData, // Incluimos la data del usuario
+          status: 200,
+        },
       });
 
+      // Guardar los tokens en cookies
       if (access_token) {
         response.cookies.set("access_token", access_token, {
           httpOnly: true,
@@ -62,8 +82,16 @@ export const POST = async (req: NextRequest & { body: RequestBody }) => {
         });
       }
 
-      if (id_token) {
-        response.cookies.set("id_token", id_token, {
+      if (loginResponse.data.id_token) {
+        response.cookies.set("id_token", loginResponse.data.id_token, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          maxAge: 3600,
+        });
+      }
+
+      if (management_token) {
+        response.cookies.set("management_token", management_token, {
           httpOnly: true,
           secure: process.env.NODE_ENV === "production",
           maxAge: 3600,

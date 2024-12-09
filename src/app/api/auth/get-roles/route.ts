@@ -13,7 +13,7 @@ interface ErrorResponse {
 
 export async function GET(req: NextRequest) {
   try {
-    const token = req.cookies.get("access_token")?.value;
+    const token = req.cookies.get("management_token")?.value;
 
     const response = await axios.get(
       `${process.env.AUTH0_API_URL}/api/v2/roles`,
