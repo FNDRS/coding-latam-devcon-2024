@@ -36,7 +36,7 @@ export const UserTable: React.FC<UserTableProps> = ({
           <Table.ColumnHeaderCell>Name</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell>Email</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell>Last Login</Table.ColumnHeaderCell>
-          <Table.ColumnHeaderCell>Actions</Table.ColumnHeaderCell>
+          {/* <Table.ColumnHeaderCell>Actions</Table.ColumnHeaderCell> */}
         </Table.Row>
       </Table.Header>
 
@@ -45,8 +45,14 @@ export const UserTable: React.FC<UserTableProps> = ({
           <Table.Row key={index}>
             <Table.RowHeaderCell>{data.nickname}</Table.RowHeaderCell>
             <Table.RowHeaderCell>{data.email}</Table.RowHeaderCell>
-            <Table.RowHeaderCell>{data.last_login}</Table.RowHeaderCell>
             <Table.RowHeaderCell>
+              {new Date(data.last_login).toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+                year: "numeric",
+              })}
+            </Table.RowHeaderCell>
+            {/*  <Table.RowHeaderCell>
               <PopoverWrapper
                 trigger={<DotsHorizontalIcon className="h-10" />}
                 side="bottom"
@@ -54,9 +60,9 @@ export const UserTable: React.FC<UserTableProps> = ({
               >
                 <ul className="flex flex-col gap-4">
                   <li className="flex flex-row gap-2 items-center hover:bg-black hover:text-white cursor-pointer p-2 rounded-lg">
-                    <Pencil1Icon className="h-5" />
-                    <span>Edit User</span>
-                  </li>
+                      <Pencil1Icon className="h-5" />
+                      <span>Edit User</span>
+                    </li> 
 
                   <DialogWrapper
                     maxWidth="100%"
@@ -72,7 +78,7 @@ export const UserTable: React.FC<UserTableProps> = ({
                   </DialogWrapper>
                 </ul>
               </PopoverWrapper>
-            </Table.RowHeaderCell>
+            </Table.RowHeaderCell> */}
           </Table.Row>
         ))}
       </Table.Body>
