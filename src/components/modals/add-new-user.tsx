@@ -33,7 +33,6 @@ export const AddNewUser = () => {
     },
   });
 
-  console.log(errors, "err");
   useEffect(() => {
     (async () => {
       try {
