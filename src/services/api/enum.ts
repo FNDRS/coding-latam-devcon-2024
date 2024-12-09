@@ -7,4 +7,5 @@ export enum Endpoints {
   ValidateToken = "/api/auth/validate-token",
   SignUp = "/api/auth/sign-up",
   GetUsers = "/api/auth/get-users",
+  GetRoles = "/api/auth/get-roles",
 }

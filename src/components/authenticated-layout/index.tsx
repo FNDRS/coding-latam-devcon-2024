@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { Loading } from "../loading";
 import { useAuth } from "@/context/auth-context";
+import toast from "react-hot-toast";
 
 export const AuthenticatedLayout = ({
   children,
@@ -21,7 +22,9 @@ export const AuthenticatedLayout = ({
   }
 
   if (!isAuthenticated) {
-    router.push("/");
+    toast.dismiss();
+    toast.error("You need to be logged in to access this page.");
+    router.push("/login");
     return null;
   }
 

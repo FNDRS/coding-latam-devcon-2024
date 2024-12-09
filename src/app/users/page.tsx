@@ -1,6 +1,7 @@
 "use client";
 import { ButtonWrapper } from "@/components/button-wrapper";
 import { DialogWrapper } from "@/components/dialog-wrapper";
+import { AddNewUser } from "@/components/modals/add-new-user";
 
 import { UserTable } from "@/components/users-table";
 import { Endpoints } from "@/services/api/enum";
@@ -27,6 +28,7 @@ export default function Users(): JSX.Element {
         setUsersData(response.data);
       })();
     } catch (error) {
+      console.error("An error occurred while fetching users", error);
       toast.dismiss();
       toast.error("Failed to fetch users");
     }
@@ -48,7 +50,7 @@ export default function Users(): JSX.Element {
           title="Add New User"
           description="Fill in the details to add a new user."
         >
-          <div>user</div>
+          <AddNewUser />
         </DialogWrapper>
 
         <UserTable

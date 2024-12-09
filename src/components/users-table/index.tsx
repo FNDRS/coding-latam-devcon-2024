@@ -33,7 +33,6 @@ export const UserTable: React.FC<UserTableProps> = ({
     <Table.Root variant="surface" className="rounded-lg my-2">
       <Table.Header>
         <Table.Row>
-          <Table.ColumnHeaderCell>ID</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell>Name</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell>Email</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell>Last Login</Table.ColumnHeaderCell>
@@ -44,7 +43,6 @@ export const UserTable: React.FC<UserTableProps> = ({
       <Table.Body>
         {data.map((data, index) => (
           <Table.Row key={index}>
-            <Table.RowHeaderCell>{data.user_id}</Table.RowHeaderCell>
             <Table.RowHeaderCell>{data.nickname}</Table.RowHeaderCell>
             <Table.RowHeaderCell>{data.email}</Table.RowHeaderCell>
             <Table.RowHeaderCell>{data.last_login}</Table.RowHeaderCell>

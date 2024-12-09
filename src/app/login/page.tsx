@@ -24,17 +24,17 @@ export default function Login(): JSX.Element {
 
   const onSubmit = async (data: FormData) => {
     try {
-      toast.loading("Logging in...");
+      const loadingToast = toast.loading("Logging in...");
 
       const response = await axios.post(Endpoints.Login, data);
 
       if (response.data.status !== 200) {
-        toast.dismiss();
+        toast.dismiss(loadingToast);
         toast.error("Invalid email or password");
         return;
       }
 
-      toast.dismiss();
+      toast.dismiss(loadingToast);
       toast.success("Logged in successfully");
       router.push("/dashboard");
     } catch (e) {

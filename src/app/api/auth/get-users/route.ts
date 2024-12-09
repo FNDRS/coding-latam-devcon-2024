@@ -36,6 +36,7 @@ const getUsers = async (accessToken: string) => {
 
     return response.data;
   } catch (error) {
+    console.error("Error fetching users from Auth0:", error);
     if (axios.isAxiosError(error)) {
       console.error("Error fetching users from Auth0:", error.message);
     } else {
