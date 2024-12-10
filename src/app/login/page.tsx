@@ -29,14 +29,14 @@ export default function Login(): JSX.Element {
       const loadingToast = toast.loading("Logging in...");
 
       const response = await axios.post(Endpoints.Login, data);
-      console.log(response);
+
       if (response.data.status !== 200) {
         toast.dismiss(loadingToast);
         toast.error("Invalid email or password");
         return;
       }
       const userInfo = response?.data?.body?.user;
-      console.log(userInfo, "userInfo");
+
       login(userInfo);
 
       toast.dismiss(loadingToast);

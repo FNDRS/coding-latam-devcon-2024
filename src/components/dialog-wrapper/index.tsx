@@ -9,6 +9,8 @@ interface DialogWrapperProps {
   children: React.ReactNode;
   className?: string;
   maxWidth?: string;
+  open?: boolean;
+  onOpenChange?: (isOpen: boolean) => void;
 }
 
 export const DialogWrapper: React.FC<DialogWrapperProps> = ({
@@ -18,9 +20,11 @@ export const DialogWrapper: React.FC<DialogWrapperProps> = ({
   children,
   className = "",
   maxWidth,
+  open,
+  onOpenChange,
 }) => {
   return (
-    <Dialog.Root>
+    <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Trigger asChild>{trigger}</Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-50" />

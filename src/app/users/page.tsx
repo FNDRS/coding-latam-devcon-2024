@@ -11,11 +11,13 @@ import toast from "react-hot-toast";
 
 export default function Users(): JSX.Element {
   const [usersData, setUsersData] = useState([]);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
+  const handleCloseDialog = () => {
+    setIsDialogOpen(false);
+  };
   useEffect(() => {
     try {
-      toast.dismiss();
-      toast.loading("Retrieving users...");
       (async () => {
         const response = await axios.get(Endpoints.GetUsers);
 
@@ -23,8 +25,7 @@ export default function Users(): JSX.Element {
           toast.dismiss();
           toast.error("Failed to fetch users.");
         }
-        toast.dismiss();
-        toast.success("Users retrieved successfully.");
+
         setUsersData(response.data);
       })();
     } catch (error) {
@@ -32,12 +33,14 @@ export default function Users(): JSX.Element {
       toast.dismiss();
       toast.error("Failed to fetch users");
     }
-  }, []);
+  }, [isDialogOpen]);
 
   return (
     <div className="p-4 bg-gray-100 rounded-lg">
       <div>
         <DialogWrapper
+          open={isDialogOpen}
+          onOpenChange={setIsDialogOpen}
           maxWidth="100%"
           className="w-[900px]"
           trigger={
@@ -50,7 +53,7 @@ export default function Users(): JSX.Element {
           title="Add New User"
           description="Fill in the details to add a new user."
         >
-          <AddNewUser />
+          <AddNewUser onSuccess={handleCloseDialog} />
         </DialogWrapper>
 
         <UserTable

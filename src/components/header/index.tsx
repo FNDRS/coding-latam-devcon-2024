@@ -28,7 +28,6 @@ export const Header = () => {
     }
   };
 
-  console.log(user);
   return (
     <header className="h-16 font-bold px-6 bg-gray-100 rounded-lg m-4">
       <ul className="flex flex-row items-center justify-between h-full">

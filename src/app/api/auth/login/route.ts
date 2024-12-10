@@ -6,7 +6,7 @@ type ResponseData = {
   access_token?: string;
   id_token?: string;
   error_description?: string;
-  user?: any; // Para almacenar los datos del usuario
+  user?: any;
 };
 
 type RequestBody = {
@@ -40,7 +40,6 @@ export const POST = async (req: NextRequest & { body: RequestBody }) => {
     if (loginResponse.data.access_token) {
       const access_token = loginResponse.data.access_token;
 
-      // Obtener la información del usuario con el access_token
       const userInfoResponse = await axios.get(
         `${process.env.AUTH0_API_URL}/userinfo`,
         {
@@ -50,7 +49,7 @@ export const POST = async (req: NextRequest & { body: RequestBody }) => {
         }
       );
 
-      const userData = userInfoResponse.data; // Esta es la data del usuario
+      const userData = userInfoResponse.data;
 
       const managementTokenResponse = await axios.post<ResponseData>(
         `${process.env.AUTH0_API_URL}/oauth/token`,
@@ -68,12 +67,11 @@ export const POST = async (req: NextRequest & { body: RequestBody }) => {
         status: 200,
         body: {
           message: "Logged in successfully",
-          user: userData, // Incluimos la data del usuario
+          user: userData,
           status: 200,
         },
       });
 
-      // Guardar los tokens en cookies
       if (access_token) {
         response.cookies.set("access_token", access_token, {
           httpOnly: true,
