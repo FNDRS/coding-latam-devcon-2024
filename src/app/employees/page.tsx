@@ -64,21 +64,19 @@ export default function Employees(): JSX.Element {
             label: "Monthly",
             content: (
               <div>
-                <DialogWrapper
-                  maxWidth="100%"
-                  className="w-[900px]"
-                  trigger={
-                    <div className="flex flex-row justify-between items-center">
-                      <div className="w-full flex flex-row justify-start items-center mt-4">
-                        <ButtonWrapper text="New Employee" />
-                      </div>
-                    </div>
-                  }
-                  title="Add New Employee"
-                  description="Fill in the details to add a new employee."
-                >
-                  <EmployeeForm />
-                </DialogWrapper>
+                <div className="flex flex-row justify-between items-center">
+                  <div className="w-full flex flex-row justify-start items-center mt-4">
+                    <DialogWrapper
+                      maxWidth="100%"
+                      className="w-[900px]"
+                      trigger={<ButtonWrapper text="New Employee" />}
+                      title="Add New Employee"
+                      description="Fill in the details to add a new employee."
+                    >
+                      <EmployeeForm />
+                    </DialogWrapper>
+                  </div>
+                </div>
                 <EmployeeTable />
               </div>
             ),
