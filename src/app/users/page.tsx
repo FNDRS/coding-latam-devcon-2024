@@ -4,36 +4,14 @@ import { DialogWrapper } from "@/components/dialog-wrapper";
 import { AddNewUser } from "@/components/modals/add-new-user";
 
 import { UserTable } from "@/components/users-table";
-import { Endpoints } from "@/services/api/enum";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import React, { useState } from "react";
 
 export default function Users(): JSX.Element {
-  const [usersData, setUsersData] = useState([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleCloseDialog = () => {
     setIsDialogOpen(false);
   };
-  useEffect(() => {
-    try {
-      (async () => {
-        const response = await axios.get(Endpoints.GetUsers);
-
-        if (response.status !== 200) {
-          toast.dismiss();
-          toast.error("Failed to fetch users.");
-        }
-
-        setUsersData(response.data);
-      })();
-    } catch (error) {
-      console.error("An error occurred while fetching users", error);
-      toast.dismiss();
-      toast.error("Failed to fetch users");
-    }
-  }, [isDialogOpen]);
 
   return (
     <div className="p-4 bg-gray-100 rounded-lg">
@@ -56,12 +34,7 @@ export default function Users(): JSX.Element {
           <AddNewUser onSuccess={handleCloseDialog} />
         </DialogWrapper>
 
-        <UserTable
-          data={usersData}
-          errors={{}}
-          register={() => {}}
-          watch={() => {}}
-        />
+        <UserTable isDialogOpen={isDialogOpen} />
       </div>
     </div>
   );

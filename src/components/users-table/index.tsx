@@ -1,35 +1,61 @@
 import { Table } from "@radix-ui/themes";
-import React from "react";
-import { DialogWrapper } from "../dialog-wrapper";
-import {
-  DotsHorizontalIcon,
-  Pencil1Icon,
-  PersonIcon,
-} from "@radix-ui/react-icons";
-import { PopoverWrapper } from "../popover-wrapper";
-import { ConfirmDelete } from "../modals/confirm-delete";
+import { Endpoints } from "@/services/api/enum";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { Loading } from "../loading";
 
-interface UserData {
-  user_id: string;
+interface UserTableProps {
+  isDialogOpen: boolean;
+}
+interface User {
   nickname: string;
   email: string;
   last_login: string;
 }
+export const UserTable: React.FC<UserTableProps> = ({ isDialogOpen }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [usersData, setUsersData] = useState<User[]>([]);
 
-interface UserTableProps {
-  data: UserData[];
-  errors: any;
-  register: any;
-  watch: any;
-}
+  useEffect(() => {
+    setIsLoading(true);
+    (async () => {
+      try {
+        const response = await axios.get(Endpoints.GetUsers);
 
-export const UserTable: React.FC<UserTableProps> = ({
-  data,
-  errors,
-  register,
-  watch,
-}) => {
-  console.log(data);
+        if (response.status !== 200) {
+          toast.dismiss();
+          toast.error("Failed to fetch users.");
+        }
+
+        setUsersData(response.data);
+      } catch (error) {
+        console.error("An error occurred while fetching users", error);
+        toast.dismiss();
+        toast.error("Failed to fetch users");
+      } finally {
+        setIsLoading(false);
+      }
+    })();
+  }, [isDialogOpen]);
+
+  if (isLoading) {
+    return (
+      <div className="h-96 flex items-center justify-center">
+        <Loading />
+      </div>
+    );
+  }
+
+  if (usersData.length === 0) {
+    return (
+      <div className="h-96 flex items-center justify-center">
+        <p className="text-[16px] font-semibold text-gray-500">
+          No employees found!
+        </p>
+      </div>
+    );
+  }
   return (
     <Table.Root variant="surface" className="rounded-lg my-2">
       <Table.Header>
@@ -42,7 +68,7 @@ export const UserTable: React.FC<UserTableProps> = ({
       </Table.Header>
 
       <Table.Body>
-        {data.map((data, index) => (
+        {usersData.map((data, index) => (
           <Table.Row key={index}>
             <Table.RowHeaderCell>{data.nickname}</Table.RowHeaderCell>
             <Table.RowHeaderCell>{data.email}</Table.RowHeaderCell>

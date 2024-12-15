@@ -18,12 +18,12 @@ import formatNumberAsCurrency from "@/utils/format";
 
 export const EmployeeTable: React.FC = () => {
   const [employeeData, setEmployeeData] = React.useState<Employee[]>([]);
-  const [loading, setLoading] = React.useState<boolean>(false);
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   useEffect(() => {
     (async () => {
       try {
-        setLoading(true);
+        setIsLoading(true);
         const response = await axios.get<EmployeeResponse>(
           `${Endpoints.GetEmployees}`
         );
@@ -40,13 +40,27 @@ export const EmployeeTable: React.FC = () => {
         toast.dismiss();
         toast.error("An error occurred while fetching employee");
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
     })();
   }, []);
 
-  if (loading) {
-    return <Loading />;
+  if (isLoading) {
+    return (
+      <div className="h-96 flex items-center justify-center">
+        <Loading />
+      </div>
+    );
+  }
+
+  if (employeeData.length === 0) {
+    return (
+      <div className="h-96 flex items-center justify-center">
+        <p className="text-[16px] font-semibold text-gray-500">
+          No employees found!
+        </p>
+      </div>
+    );
   }
   return (
     <Table.Root variant="surface" className="rounded-lg my-2">
