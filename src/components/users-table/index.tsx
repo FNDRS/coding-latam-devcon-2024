@@ -29,6 +29,7 @@ export const UserTable: React.FC<UserTableProps> = ({
   register,
   watch,
 }) => {
+  console.log(data);
   return (
     <Table.Root variant="surface" className="rounded-lg my-2">
       <Table.Header>
@@ -46,11 +47,13 @@ export const UserTable: React.FC<UserTableProps> = ({
             <Table.RowHeaderCell>{data.nickname}</Table.RowHeaderCell>
             <Table.RowHeaderCell>{data.email}</Table.RowHeaderCell>
             <Table.RowHeaderCell>
-              {new Date(data.last_login).toLocaleDateString("en-US", {
-                month: "short",
-                day: "numeric",
-                year: "numeric",
-              })}
+              {data.last_login
+                ? new Date(data.last_login).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                  })
+                : "No login registered."}
             </Table.RowHeaderCell>
             {/*  <Table.RowHeaderCell>
               <PopoverWrapper
