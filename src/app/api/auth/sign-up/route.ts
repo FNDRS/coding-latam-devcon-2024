@@ -1,3 +1,4 @@
+import { getManagementApiToken } from "@/utils/auth-0-utils";
 import axios, { AxiosError } from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -17,23 +18,6 @@ type RequestBody = {
   email: string;
   password: string;
   roleId: string;
-};
-
-const getManagementApiToken = async () => {
-  const tokenOptions = {
-    method: "POST",
-    url: `${process.env.AUTH0_DOMAIN}/oauth/token`,
-    headers: { "Content-Type": "application/json" },
-    data: {
-      client_id: process.env.AUTH0_CLIENT_ID,
-      client_secret: process.env.AUTH0_CLIENT_SECRET,
-      audience: `${process.env.AUTH0_DOMAIN}/api/v2/`,
-      grant_type: "client_credentials",
-    },
-  };
-
-  const tokenRes = await axios.request<TokenResponse>(tokenOptions);
-  return tokenRes.data.access_token;
 };
 
 const assignRoleToUser = async (

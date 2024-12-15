@@ -1,17 +1,9 @@
 import { ButtonWrapper } from "@/components/button-wrapper";
 import { DialogWrapper } from "@/components/dialog-wrapper";
 import { EmployeeTable } from "@/components/employee-table";
-import { AddNewEmployeeToPayroll } from "@/components/modals/add-new-employee-to-payroll";
-import { EditPayrollCycle } from "@/components/modals/edit-payroll-cycle";
 import { EmployeeForm } from "@/components/modals/employee-form";
-import { PopoverWrapper } from "@/components/popover-wrapper";
 import { TabsWrapper } from "@/components/tabs-wrapper";
-import {
-  DotsHorizontalIcon,
-  FileTextIcon,
-  Pencil1Icon,
-  PersonIcon,
-} from "@radix-ui/react-icons";
+
 import React from "react";
 
 interface Employee {
@@ -87,14 +79,7 @@ export default function Employees(): JSX.Element {
                 >
                   <EmployeeForm />
                 </DialogWrapper>
-
-                <EmployeeTable
-                  employeeData={employeeData}
-                  errors={{}}
-                  register={() => {}}
-                  watch={() => {}}
-                />
-                {/* <PayrollCyclesTable /> */}
+                <EmployeeTable />
               </div>
             ),
           },
