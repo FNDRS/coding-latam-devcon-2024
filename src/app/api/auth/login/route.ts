@@ -13,7 +13,6 @@ type RequestBody = {
   email: string;
   password: string;
 };
-
 export const POST = async (req: NextRequest & { body: RequestBody }) => {
   try {
     const data = await req.json();
@@ -51,18 +50,6 @@ export const POST = async (req: NextRequest & { body: RequestBody }) => {
 
       const userData = userInfoResponse.data;
 
-      const managementTokenResponse = await axios.post<ResponseData>(
-        `${process.env.AUTH0_API_URL}/oauth/token`,
-        {
-          client_id: process.env.AUTH0_MANAGEMENT_ID,
-          client_secret: process.env.AUTH0_MANAGEMENT_SECRET,
-          grant_type: "client_credentials",
-          audience: process.env.AUTH0_AUDIENCE,
-        }
-      );
-
-      const { access_token: management_token } = managementTokenResponse.data;
-
       const response = NextResponse.json({
         status: 200,
         body: {
@@ -82,14 +69,6 @@ export const POST = async (req: NextRequest & { body: RequestBody }) => {
 
       if (loginResponse.data.id_token) {
         response.cookies.set("id_token", loginResponse.data.id_token, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === "production",
-          maxAge: 3600,
-        });
-      }
-
-      if (management_token) {
-        response.cookies.set("management_token", management_token, {
           httpOnly: true,
           secure: process.env.NODE_ENV === "production",
           maxAge: 3600,
