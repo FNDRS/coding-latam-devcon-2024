@@ -2,14 +2,6 @@
 
 import { Table } from "@radix-ui/themes";
 import React, { useEffect } from "react";
-import { DialogWrapper } from "../dialog-wrapper";
-import {
-  DotsHorizontalIcon,
-  PersonIcon,
-  TimerIcon,
-} from "@radix-ui/react-icons";
-import { PopoverWrapper } from "../popover-wrapper";
-import { ConfirmDelete } from "../modals/confirm-delete";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { Endpoints } from "@/services/api/enum";
@@ -25,7 +17,7 @@ export const EmployeeTable: React.FC = () => {
       try {
         setIsLoading(true);
         const response = await axios.get<EmployeeResponse>(
-          `${Endpoints.GetEmployees}`
+          `${Endpoints.Employees}`
         );
 
         if (response.status !== 200) {
@@ -34,7 +26,6 @@ export const EmployeeTable: React.FC = () => {
         }
 
         setEmployeeData(response.data.content);
-        console.log("Employee data: ", response);
       } catch (error) {
         console.error("An error occurred while fetching employees: ", error);
         toast.dismiss();
@@ -72,7 +63,7 @@ export const EmployeeTable: React.FC = () => {
           <Table.ColumnHeaderCell>Salary Type</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell>Hourly Salary</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell>Amount</Table.ColumnHeaderCell>
-          <Table.ColumnHeaderCell>Actions</Table.ColumnHeaderCell>
+          {/* <Table.ColumnHeaderCell>Actions</Table.ColumnHeaderCell> */}
         </Table.Row>
       </Table.Header>
 
@@ -86,10 +77,13 @@ export const EmployeeTable: React.FC = () => {
             <Table.RowHeaderCell>{data.email}</Table.RowHeaderCell>
             <Table.RowHeaderCell>{data.salaryType}</Table.RowHeaderCell>
             <Table.RowHeaderCell>
+              {formatNumberAsCurrency(data.salaryHourly ?? 0, 0)}
+            </Table.RowHeaderCell>
+            <Table.RowHeaderCell>
+              {" "}
               {formatNumberAsCurrency(data.salaryAmount ?? 0, 0)}
             </Table.RowHeaderCell>
-            <Table.RowHeaderCell>{data.salaryType}</Table.RowHeaderCell>
-            <Table.RowHeaderCell>
+            {/*   <Table.RowHeaderCell>
               <PopoverWrapper
                 trigger={<DotsHorizontalIcon className="h-10" />}
                 side="bottom"
@@ -115,7 +109,7 @@ export const EmployeeTable: React.FC = () => {
                   </DialogWrapper>
                 </ul>
               </PopoverWrapper>
-            </Table.RowHeaderCell>
+            </Table.RowHeaderCell> */}
           </Table.Row>
         ))}
       </Table.Body>

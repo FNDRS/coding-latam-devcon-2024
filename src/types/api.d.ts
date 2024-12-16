@@ -47,8 +47,8 @@ interface Employee {
   email: string;
   payroll: Payroll;
   payrollCycle: PayrollCycle;
-  salaryType: "MONTHLY" | "HOURLY"; // TODO: change to enum
-  paymentMethod: "BANK" | "CASH" | "OTHER"; // TODO: change to enum
+  salaryType: SalaryType;
+  paymentMethod: PaymentMethod;
   salaryAmount: number | null;
   salaryHourly: number | null;
   createdAt: string;
@@ -62,4 +62,53 @@ interface EmployeeResponse {
   totalElements: number;
   totalPages: number;
   hasNext: boolean;
+}
+
+interface EmployeeRequest {
+  firstName: string;
+  lastName: string;
+  birthDate: Date | null; // ISO 8601 format date
+  email: string;
+  payrollId: string;
+  cycleId: string; // UUID format
+  salaryType: SalaryType;
+  paymentMethod: PaymentMethod;
+  salaryAmount: number;
+  address: string;
+}
+
+enum PaymentMethod {
+  BANK,
+  INTERNATIONAL_TRANSFER,
+  INTERNATIONAL_PLATFORM,
+}
+
+enum SalaryType {
+  MONTHLY,
+  HOURLY,
+}
+
+interface Payroll {
+  id: string;
+  payrollName: string;
+  employeesCount: number;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+}
+interface PayrollResponse {
+  content: Payroll[];
+  page: number;
+  size: number;
+  totalElements: number;
+  totalPages: number;
+  hasNext: boolean;
+}
+interface PayrollDetailResponse {
+  id: string;
+  payrollName: string;
+  description: string;
+  payrollCycles: PayrollCycle[];
+  createdAt: string;
+  updatedAt: string;
 }

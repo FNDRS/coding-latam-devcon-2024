@@ -10,6 +10,7 @@ export enum Endpoints {
   GetRoles = "/api/auth/get-roles",
   CreateUser = "/api/auth/create-user",
 
-  // employees
-  GetEmployees = "/api/employees",
+  Employees = "/api/employees",
+  GetAllPayrolls = "/api/payrolls/get-all-payrolls",
+  GetPayrollDetails = "/api/payrolls/get-payroll-details",
 }

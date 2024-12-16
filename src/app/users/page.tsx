@@ -33,8 +33,9 @@ export default function Users(): JSX.Element {
         >
           <AddNewUser onSuccess={handleCloseDialog} />
         </DialogWrapper>
-
-        <UserTable isDialogOpen={isDialogOpen} />
+        <div className="overflow-y-auto max-h-[60vh] my-2">
+          <UserTable isDialogOpen={isDialogOpen} />
+        </div>
       </div>
     </div>
   );

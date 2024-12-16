@@ -21,7 +21,7 @@ export const getManagementApiToken = async () => {
     };
 
     const tokenRes = await axios.request<TokenResponse>(tokenOptions);
-    console.log("Token response: ", tokenRes.data);
+
     return tokenRes.data.access_token;
   } catch (error) {
     console.error(

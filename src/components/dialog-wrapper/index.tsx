@@ -35,6 +35,7 @@ export const DialogWrapper: React.FC<DialogWrapperProps> = ({
             left: "50%",
             transform: "translate(-50%, -50%)",
             maxWidth: maxWidth,
+            maxHeight: "80vh",
           }}
         >
           <Dialog.Title className="text-xl font-bold mb-2">
@@ -45,7 +46,7 @@ export const DialogWrapper: React.FC<DialogWrapperProps> = ({
               {description}
             </Dialog.Description>
           )}
-          {children}
+          <div className="overflow-y-auto max-h-[60vh] px-4">{children}</div>{" "}
           <Dialog.Close asChild>
             <button className="absolute top-2 right-2 text-gray-500 hover:text-black">
               ✕
